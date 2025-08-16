@@ -57,14 +57,14 @@ function StaticIcon({
       width={size}
       height={size}
       fill="none"
-      viewBox="0 0 24 24"
+      viewBox="0 0 12 12"
       role={label && 'img'}
       aria-labelledby={id}
       aria-hidden={!label}
       {...props}
     >
       {label && <title id={id}>{label}</title>}
-      <path fill={color} d={d}></path>
+      <path fill={color} d={d} fillRule="evenodd" clipRule="evenodd"></path>
     </svg>
   );
 }
@@ -75,7 +75,7 @@ function Spinner({ size = 24, color = '#525577', id, label = '', ...props }) {
       width={size}
       height={size}
       stroke={color}
-      viewBox="0 0 12 12"
+      viewBox="0 0 24 24"
       role={label && 'img'}
       aria-labelledby={id}
       aria-hidden={!label}
