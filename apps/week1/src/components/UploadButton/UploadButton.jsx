@@ -3,11 +3,11 @@ import './UploadButton.css';
 
 export default function UploadButton({
   lang = 'ko',
-  label,
+  label = '',
   status = 'idle',
   color = '#525577',
-  size,
-  children,
+  size = 12,
+  children = '업로드',
   ...props
 }) {
   const isBtnDisabled = status === 'disabled';

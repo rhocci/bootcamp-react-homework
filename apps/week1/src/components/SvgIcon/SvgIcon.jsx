@@ -1,7 +1,13 @@
 import { useId } from 'react';
 import './SvgIcon.css';
 
-export default function SvgIcon({ type, size, color, label, ...props }) {
+export default function SvgIcon({
+  type = 'up-arrow',
+  size = 24,
+  color = '#525577',
+  label = '',
+  ...props
+}) {
   const id = useId();
 
   return type === 'spinner' ? (
@@ -18,7 +24,14 @@ export default function SvgIcon({ type, size, color, label, ...props }) {
   );
 }
 
-function StaticIcon({ type, size, color, id, label, ...props }) {
+function StaticIcon({
+  type = 'up-arrow',
+  size = 24,
+  color = '#525577',
+  id,
+  label = '',
+  ...props
+}) {
   let d;
 
   switch (type) {
@@ -56,7 +69,7 @@ function StaticIcon({ type, size, color, id, label, ...props }) {
   );
 }
 
-function Spinner({ size, color, id, label, ...props }) {
+function Spinner({ size = 24, color = '#525577', id, label = '', ...props }) {
   return (
     <svg
       width={size}
