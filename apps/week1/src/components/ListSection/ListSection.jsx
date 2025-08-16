@@ -1,3 +1,5 @@
+import './ListSection.css';
+
 export default function ListSection({ title, children }) {
   return (
     <section className="list-section">

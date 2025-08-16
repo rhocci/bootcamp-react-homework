@@ -1,3 +1,5 @@
+import './ListItem.css';
+
 export default function ListItem({ key, title, children }) {
   return (
     <li key={key} className="list-item">

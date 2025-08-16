@@ -1,3 +1,30 @@
 #root {
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 2rem;
+  min-height: 100vh;
+  background: #f8f8fa;
+  color: #525577;
+}
+
+#header {
+  text-align: center;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+}
+
+#container {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+  border: 1px solid #52557710;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px #52557720;
+  width: 60vw;
 }
