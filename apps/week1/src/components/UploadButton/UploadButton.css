@@ -1,0 +1,21 @@
+:root {
+  --deepblue: '#525577';
+  --disabled: '#ADAEB6';
+}
+
+.btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 12px;
+  border-radius: 30px;
+  color: var(--deepblue);
+  background: #fff;
+  font-weight: 700;
+  font-size: 12px;
+  box-shadow: 0 4px 4px #dbddf0;
+}
+
+.btn--disabled {
+  color: var(--disabled);
+}
