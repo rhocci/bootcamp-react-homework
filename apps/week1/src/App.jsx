@@ -2,8 +2,6 @@ import ListSection from './components/ListSection/ListSection.jsx';
 import ListItem from './components/ListItem/ListItem.jsx';
 import { SVGICON_ITEMS, BUTTON_ITEMS } from './data.jsx';
 import './App.css';
-// import SvgIcon from './components/SvgIcon/SvgIcon.jsx';
-// import UploadButton from './components/UploadButton/UploadButton.jsx';
 
 function App() {
   return (
