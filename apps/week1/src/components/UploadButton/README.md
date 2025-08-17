@@ -20,14 +20,17 @@ import UploadButton from '@/components/UploadButton/UploadButton.jsx';
 // 기본 상태 (대기)
 <UploadButton>업로드</UploadButton>
 
-// 특정 타입의 아이콘
-<UploadButton></UploadButton>
+// 로딩 상태
+<UploadButton status="pending">로딩 중</UploadButton>
 
-// 크기와 색상 지정
-<UploadButton></UploadButton>
+// 툴팁/스크린리더 라벨 추가
+<UploadButton status="resolved" label="업로드 완료">완료</UploadButton>
+
+// 색상, 크기 커스텀
+<UploadButton status="rejected" color="#FF00FF" size="32">실패</UploadButton>
 
 // 비활성화 버튼
-<UploadButton></UploadButton>
+<UploadButton status="disabled">업로드</UploadButton>
 ```
 
 ### props
