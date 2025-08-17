@@ -11,8 +11,7 @@ export default function UploadButton({
   ...props
 }) {
   const isBtnDisabled = status === 'disabled';
-
-  const iconMap = {
+  const ICON_MAP = {
     idle: 'up-arrow',
     pending: 'spinner',
     resolved: 'check-mark',
@@ -31,9 +30,9 @@ export default function UploadButton({
       {...props}
     >
       {children}
-      {iconMap[status] && (
+      {ICON_MAP[status] && (
         <SvgIcon
-          type={iconMap[status]}
+          type={ICON_MAP[status]}
           size={size}
           color={isBtnDisabled ? '#ADAEB6' : color}
           label={label}
