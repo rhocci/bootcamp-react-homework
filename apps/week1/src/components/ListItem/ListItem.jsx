@@ -1,8 +1,8 @@
-import './ListItem.css';
+import "./ListItem.css";
 
-export default function ListItem({ key, title, children }) {
+export default function ListItem({ title, children }) {
   return (
-    <li key={key} className="list-item">
+    <li className="list-item">
       <h3>{title}</h3>
       {children}
     </li>
