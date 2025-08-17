@@ -27,3 +27,9 @@
   font-weight: 400;
   background: #52557714;
 }
+
+@media screen and (max-width: 768px) {
+  .list-section {
+    width: 100%;
+  }
+}
