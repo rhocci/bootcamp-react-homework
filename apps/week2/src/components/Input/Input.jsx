@@ -66,12 +66,6 @@ const ErrorMessage = styled.p`
   margin-top: 4px;
 `;
 
-const InputHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
 export default function Input({
   type = 'text',
   id,
@@ -92,9 +86,7 @@ export default function Input({
 
   return (
     <div>
-      <InputHeader>
-        <StyledLabel htmlFor={id}>{label}</StyledLabel>
-      </InputHeader>
+      <StyledLabel htmlFor={id}>{label}</StyledLabel>
       <StyledInput $invalid={invalid}>
         <InputField
           type={isToggleClicked ? 'text' : type}
