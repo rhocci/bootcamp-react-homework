@@ -5,6 +5,7 @@ const StyledLabel = styled.label`
   color: ${({ theme }) => theme.colors.text.body};
   font-weight: 600;
   font-size: 1.125rem;
+  transition: color 0.4s ease;
 
   &:has(+ div:focus-within) {
     color: ${({ theme }) => theme.colors.primary.active};
@@ -30,6 +31,7 @@ const StyledInput = styled.div`
     border-bottom: 1px solid
       ${({ theme, $invalid }) =>
         $invalid ? theme.colors.danger.normal : theme.colors.stroke.medium};
+    transition: border-color 0.4s ease;
   }
 
   &:focus-within::after {

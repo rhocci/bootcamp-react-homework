@@ -9,10 +9,12 @@ const StyledForm = styled.form`
   flex-direction: column;
   row-gap: 1.75rem;
   padding: 2rem;
+  padding-bottom: 4.5rem;
   width: clamp(300px, 50vw, 600px);
   background: ${({ theme }) => theme.colors.bg.light};
-  border-radius: 8px;
+  border-radius: 12px;
   box-shadow: 0 4px 20px #52557720;
+  position: relative;
 `;
 
 const initialValues = {
