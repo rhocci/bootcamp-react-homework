@@ -90,7 +90,6 @@ export default function Input({
           id={id}
           value={value}
           placeholder={placeholder}
-          isToggleClicked={isToggleClicked}
           onChange={(e) => {
             if (e.key === '') return;
 

@@ -17,8 +17,31 @@ const StyledButton = styled.button`
   &:hover {
     background: ${({ theme }) => theme.colors.primary.hover};
   }
+
+  &:focus {
+    outline: 2px solid ${({ theme }) => theme.colors.primary.active};
+    outline-offset: 1px;
+  }
 `;
 
-export default function Button({}) {
-  return <StyledButton>버튼</StyledButton>;
+export default function Button({
+  type = 'button',
+  label = '확인',
+  onClick,
+  disabled = false,
+}) {
+  return (
+    <StyledButton
+      type={type}
+      onClick={onClick}
+      onKeyDown={(e) => {
+        if (e.key == ' ' || e.key == ' Enter') {
+          onClick();
+        }
+      }}
+      disabled={disabled}
+    >
+      {label}
+    </StyledButton>
+  );
 }
