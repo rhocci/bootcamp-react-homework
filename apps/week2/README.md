@@ -8,6 +8,7 @@
   - [초기 환경 구성](#초기-환경-구성)
   - [과제 요구사항 분석](#과제-요구사항-분석)
   - [컴포넌트 트리 구조](#statelessstateful-컴포넌트-트리-구조)
+  - [폴더 구성](#폴더-구성)
 - [과제 수행 과정](#-과제-수행-과정)
   - [theme.js](#themejs)
   - [Input.jsx](#inputjsx)
@@ -17,7 +18,7 @@
   - [App.jsx](#appjsx)
 - [2주차 회고](#-2주차-회고)
 
-## 🧩 환경 구성 + 트리 구조 잡기
+## 📁 환경 구성 + 트리 구조 잡기
 
 ### 초기 환경 구성
 
@@ -89,6 +90,30 @@ bun add -d eslint-plugin-styled-components-a11y
 이 때 유효성 검사를 인풋의 change 이벤트마다 할지 버튼의 submit 이벤트에서 한 번에 할지 고민하기도 했는데, 입력 시작과 동시에 에러 메세지가 뜨는 건 사용자에게 썩 유쾌한 경험이 아니라고 생각해 버튼에서 한 번에 처리하기로 했다.
 
 이후 버튼 클릭 → 제출 실패를 1회 겪고 난 후엔 change 이벤트에 따라 실시간으로 바뀌는 것이 베스트겠지만 제출 마감이 얼마 안 남은 상태에서 과제를 시작한지라… 우선은 뼈대가 될 로그인 폼만 먼저 구현해 보고 이후 회원가입/로그인 성공을 데이터 객체를 빼서 `map` 으로 렌더링하는 등 디테일을 손보기로 했다.
+
+### 폴더 구성
+
+```jsx
+🌟week2/
+├── 🌐public/
+└── src/
+    ├── 📁components/
+    │   ├── 🧩Button/
+    │   │   ├── Button.jsx
+    │   │   └── README.md
+    │   ├── 🧩Form/
+    │   │   ├── Form.jsx
+    │   │   ├── formFields.js
+    │   │   └── README.md
+    │   └── 🧩Input/
+    │       ├── Input.jsx
+    │       └── README.md
+    ├── 📁styles/
+    │   └── theme.js
+    ├── App.jsx
+    └── main.jsx
+
+```
 
 ## 🔎 과제 수행 과정
 
@@ -483,6 +508,16 @@ function App() {
 export default App;
 ```
 
+## 🧩 컴포넌트 가이드 링크 모음
+
+> 컴포넌트 가이드는 각 폴더의 `README.md` 에서 확인할 수 있습니다.
+
+| 컴포넌트 | 가이드 링크                                   |
+| -------- | --------------------------------------------- |
+| Input    | [바로가기](./src/components/Input/README.md)  |
+| Button   | [바로가기](./src/components/Button/README.md) |
+| Form     | [바로가기](./src/components/Form/README.md)   |
+
 ---
 
 ## 🌈 2주차 회고
@@ -493,7 +528,7 @@ export default App;
 스스로 컨디션이나 시간 관리의 부족성을 느꼈다.
 
 이번 과제엔 styled component를 통해 처음으로 컴포넌트 스타일링을 해 봤는데<br>
-엄청 편하고 재밌어서 시간 가는 줄 모르고 했다(그래서 과제 시간도 )<br>
+엄청 편하고 재밌어서 시간 가는 줄 모르고 했다(그래서 과제 시간도... 더보기)<br>
 JSX 코드가 지저분해지지도 않고 컴포넌트별로 딱딱 분리가 되니<br>
 깔끔함에 집착하는 나로써는 tailwind보다 styled가 취향에 훨씬 잘 맞았던 것 같다.<br>
 
