@@ -5,7 +5,6 @@ const StyledLabel = styled.label`
   color: ${({ theme }) => theme.colors.text.body};
   font-weight: 600;
   font-size: 1rem;
-  margin-bottom: 0.5rem;
 `;
 
 const StyledInput = styled.div`
@@ -27,6 +26,10 @@ const StyledInput = styled.div`
     border-bottom: 1px solid
       ${({ theme, $invalid }) =>
         $invalid ? theme.colors.danger.normal : theme.colors.stroke.medium};
+  }
+
+  &:focus-within::after {
+    border-bottom-color: ${({ theme }) => theme.colors.primary.active};
   }
 `;
 
@@ -78,7 +81,11 @@ export default function Input({
           value={value}
           placeholder={placeholder}
           isToggleClicked={isToggleClicked}
-          onChange={onChange}
+          onChange={(e) => {
+            if (e.key === '') return;
+
+            onChange(e.target.id, e.target.value.toLowelCase());
+          }}
           required={required}
           {...props}
         />

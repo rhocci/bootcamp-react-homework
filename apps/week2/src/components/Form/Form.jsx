@@ -29,7 +29,7 @@ const initialValues = {
 };
 
 export default function Form() {
-  const [currentForm, setCurrentForm] = useState('signUp');
+  const [currentForm, setCurrentForm] = useState('signIn');
   const [inputValues, setInputValues] = useState(initialValues[currentForm]);
   const [errors, setErrors] = useState({
     name: {
