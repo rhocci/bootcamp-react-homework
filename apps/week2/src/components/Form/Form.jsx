@@ -18,16 +18,23 @@ const StyledForm = styled.form`
 `;
 
 const initialValues = {
-  signIn: {
-    email: null,
-    password: null,
-  },
   signUp: {
-    name: null,
-    email: null,
-    password: null,
-    passwordCheck: null,
+    name: '',
+    email: '',
+    password: '',
+    passwordCheck: '',
   },
+  signIn: {
+    email: '',
+    password: '',
+  },
+};
+
+const initialErrors = {
+  name: '',
+  email: '',
+  password: '',
+  passwordCheck: '',
 };
 
 function validateName(name) {
@@ -51,38 +58,45 @@ function validatePasswordCheck(password, passwordCheck) {
 export default function Form() {
   const [currentForm, setCurrentForm] = useState('signUp');
   const [inputValues, setInputValues] = useState(initialValues[currentForm]);
-  const [errors, setErrors] = useState({
-    name: '',
-    email: '',
-    password: '',
-    passwordCheck: '',
-  });
+  const [errors, setErrors] = useState(initialErrors);
 
   function handleInputChange(inputId, inputValue) {
     setInputValues((prevValues) => ({ ...prevValues, [inputId]: inputValue }));
   }
 
-  function handleFormSubmit(e) {
-    e.preventDefault();
+  function handleFormSubmit() {
+    let currentErrors = {};
 
-    const currentErrors = {
-      name: validateName(inputValues.name),
-      email: validateEmail(inputValues.email),
-      password: validatePassword(inputValues.password),
-      passwordCheck: validatePasswordCheck(
-        inputValues.password,
-        inputValues.passwordCheck
-      ),
-    };
+    if (currentForm === 'signUp') {
+      currentErrors = {
+        name: validateName(inputValues.name),
+        email: validateEmail(inputValues.email),
+        password: validatePassword(inputValues.password),
+        passwordCheck: validatePasswordCheck(
+          inputValues.password,
+          inputValues.passwordCheck
+        ),
+      };
+    }
+
+    if (currentForm === 'signIn') {
+      currentErrors = {
+        email: validateEmail(inputValues.email),
+        password: validatePassword(inputValues.password),
+      };
+    }
 
     setErrors(currentErrors);
 
     if (Object.values(currentErrors).every((v) => v == '')) {
       if (currentForm === 'signUp') {
         alert('회원가입 성공!');
+        setErrors(initialErrors);
         setCurrentForm('signIn');
+        setInputValues(initialValues.signIn);
       } else if (currentForm === 'signIn') {
         alert('로그인 성공!');
+        setErrors(initialErrors);
         setCurrentForm('signedIn');
       }
     }
@@ -90,7 +104,7 @@ export default function Form() {
 
   return currentForm === 'signedIn' ? (
     <p style={{ textAlign: 'center', fontWeight: '700', fontSize: '1.4rem' }}>
-      로그인에 성공하셨습니다~!
+      로그인에 성공하셨습니다!
     </p>
   ) : (
     <StyledForm>
@@ -103,7 +117,7 @@ export default function Form() {
             type={input.type}
             id={id}
             label={input.label}
-            value={inputValues?.id}
+            value={inputValues[id]}
             placeholder={input.placeholder}
             onChange={handleInputChange}
             invalid={!!errors[id]}
@@ -112,8 +126,8 @@ export default function Form() {
         );
       })}
       <Button
-        type="submit"
-        label={currentForm === 'signIn' ? '회원가입' : '로그인'}
+        type="button"
+        label={currentForm === 'signUp' ? '회원가입' : '로그인'}
         onClick={handleFormSubmit}
       />
     </StyledForm>
