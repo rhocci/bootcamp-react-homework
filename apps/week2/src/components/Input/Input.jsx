@@ -57,10 +57,19 @@ const InputField = styled.input`
 `;
 
 const ErrorMessage = styled.p`
-  color: ${({ theme, $invalid }) =>
-    $invalid ? theme.colors.danger.normal : 'transparent'};
+  min-height: 20px;
+  visibility: ${({ $invalid }) => ($invalid ? 'visible' : 'hidden')};
+  color: ${({ theme }) => theme.colors.danger.normal};
   font-weight: 400;
   font-size: 0.75rem;
+  justify-self: flex-end;
+  margin-top: 4px;
+`;
+
+const InputHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export default function Input({
@@ -83,7 +92,9 @@ export default function Input({
 
   return (
     <div>
-      <StyledLabel htmlFor={id}>{label}</StyledLabel>
+      <InputHeader>
+        <StyledLabel htmlFor={id}>{label}</StyledLabel>
+      </InputHeader>
       <StyledInput $invalid={invalid}>
         <InputField
           type={isToggleClicked ? 'text' : type}
