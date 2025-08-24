@@ -91,9 +91,10 @@ export default function Input({
           value={value}
           placeholder={placeholder}
           onChange={(e) => {
-            if (e.key === '') return;
-
-            onChange(e.target.id, e.target.value.toLowelCase());
+            onChange(e.target.id, e.target.value.toLowerCase());
+          }}
+          onKeyDown={(e) => {
+            if (e.key === ' ') e.preventDefault();
           }}
           required={required}
           {...props}

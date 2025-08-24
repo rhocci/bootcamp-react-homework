@@ -33,10 +33,10 @@ export default function Button({
   return (
     <StyledButton
       type={type}
-      onClick={onClick}
+      onClick={(e) => onClick(e)}
       onKeyDown={(e) => {
         if (e.key == ' ' || e.key == ' Enter') {
-          onClick();
+          onClick(e);
         }
       }}
       disabled={disabled}

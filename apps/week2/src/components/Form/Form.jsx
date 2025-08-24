@@ -19,41 +19,75 @@ const StyledForm = styled.form`
 
 const initialValues = {
   signIn: {
-    email: 'd',
-    password: 123,
+    email: null,
+    password: null,
   },
   signUp: {
-    name: 'ㅇㅇㅇ',
-    email: 'd',
-    password: 123,
-    passwordCheck: 123,
+    name: null,
+    email: null,
+    password: null,
+    passwordCheck: null,
   },
 };
+
+function validateName(name) {
+  return name?.length >= 2 ? '' : '2글자 이상 입력해주세요.';
+}
+
+function validateEmail(email) {
+  return /\S+@\S+\.\S+/.test(email) ? '' : '이메일 형식이 올바르지 않습니다.';
+}
+
+function validatePassword(password) {
+  return /^(?=.*[0-9])(?=.*[a-zA-Z]).{6,}$/.test(password)
+    ? ''
+    : '숫자, 영문 조합 6자리 이상 입력해주세요.';
+}
+
+function validatePasswordCheck(password, passwordCheck) {
+  return password == passwordCheck ? '' : '비밀번호가 일치하지 않습니다.';
+}
 
 export default function Form() {
   const [currentForm, setCurrentForm] = useState('signIn');
   const [inputValues, setInputValues] = useState(initialValues[currentForm]);
   const [errors, setErrors] = useState({
-    name: {
-      isInvalid: false,
-      message: '2글자 이상 입력해주세요.',
-    },
-    email: {
-      isInvalid: false,
-      message: '이메일 형식이 올바르지 않습니다.',
-    },
-    password: {
-      isInvalid: false,
-      message: '숫자, 영문 조합 6자리 이상 입력해주세요.',
-    },
-    passwordCheck: {
-      isInvalid: false,
-      message: '비밀번호가 일치하지 않습니다.',
-    },
+    name: '',
+    email: '',
+    password: '',
+    passwordCheck: '',
   });
 
   function handleInputChange(inputId, inputValue) {
     setInputValues((prevValues) => ({ ...prevValues, [inputId]: inputValue }));
+  }
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+
+    const currentErrors = {
+      name: validateName(inputValues.name),
+      email: validateEmail(inputValues.email),
+      password: validatePassword(inputValues.password),
+      passwordCheck: validatePasswordCheck(
+        inputValues.password,
+        inputValues.passwordCheck
+      ),
+    };
+
+    setErrors(currentErrors);
+
+    if (Object.values(currentErrors).every((v) => v == '')) {
+      setCurrentForm((prevForm) => {
+        if (prevForm === 'signUp') {
+          alert('회원가입 성공!');
+          return 'signIn';
+        } else if (prevForm === 'signIn') {
+          alert('로그인 성공!');
+          return 'signedIn';
+        }
+      });
+    }
   }
 
   return (
@@ -67,15 +101,19 @@ export default function Form() {
             type={input.type}
             id={id}
             label={input.label}
-            value={inputValues.id}
+            value={inputValues?.id}
             placeholder={input.placeholder}
             onChange={handleInputChange}
-            invalid={false}
-            error={errors.id}
+            invalid={!!errors[id]}
+            error={errors[id]}
           />
         );
       })}
-      <Button />
+      <Button
+        type="submit"
+        label={currentForm === 'signIn' ? '회원가입' : '로그인'}
+        onClick={handleFormSubmit}
+      />
     </StyledForm>
   );
 }
