@@ -54,7 +54,7 @@ export default function Input({
   value,
   placeholder,
   onChange,
-  invalid,
+  invalid = false,
   error,
   required = true,
   ...props

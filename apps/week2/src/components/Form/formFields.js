@@ -1,5 +1,5 @@
 export const FORM_FIELDS = {
-  login: [
+  signIn: [
     {
       type: 'text',
       id: 'name',
@@ -25,7 +25,7 @@ export const FORM_FIELDS = {
       placeholder: '입력한 패스워드 다시 입력',
     },
   ],
-  signIn: [
+  signUp: [
     {
       type: 'email',
       id: 'email',
