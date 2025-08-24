@@ -4,7 +4,11 @@ import styled from 'styled-components';
 const StyledLabel = styled.label`
   color: ${({ theme }) => theme.colors.text.body};
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.125rem;
+
+  &:has(+ div:focus-within) {
+    color: ${({ theme }) => theme.colors.primary.active};
+  }
 `;
 
 const StyledInput = styled.div`
@@ -36,14 +40,18 @@ const StyledInput = styled.div`
 const InputField = styled.input`
   flex: 1;
   background: transparent;
-  padding-block: 0.75rem;
+  padding-block: 0.5rem 0.75rem;
   color: ${({ theme, $invalid }) =>
     $invalid ? theme.colors.danger.normal : theme.colors.text.subtle};
   font-weight: 400;
-  font-size: 0.875rem;
+  font-size: 1rem;
   width: 100%;
   text-overflow: ellipsis;
   overflow: hidden;
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.text.caption};
+  }
 `;
 
 const ErrorMessage = styled.p`
