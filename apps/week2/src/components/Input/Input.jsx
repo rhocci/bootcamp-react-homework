@@ -38,6 +38,9 @@ const InputField = styled.input`
     $invalid ? theme.colors.danger.normal : theme.colors.text.subtle};
   font-weight: 400;
   font-size: 0.875rem;
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
 `;
 
 const ErrorMessage = styled.p`

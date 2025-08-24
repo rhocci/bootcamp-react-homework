@@ -7,7 +7,9 @@ import Button from '../Button/Button.jsx';
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
+  row-gap: 1.5rem;
   padding: 1.5rem;
+  width: clamp(300px, 50vw, 600px);
   background: ${({ theme }) => theme.colors.bg.light};
   border-radius: 8px;
   box-shadow: 0 4px 20px #52557720;
