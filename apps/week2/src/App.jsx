@@ -9,7 +9,7 @@ const StyledApp = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #f8f8fa;
+  background: ${({ theme }) => theme.colors.stroke.light};
 `;
 
 const Header = styled.header`
@@ -24,6 +24,20 @@ const Header = styled.header`
   }
 `;
 
+const ToggleDarkMode = styled.button`
+  padding: 10px 20px;
+  margin-top: 20px;
+  border-radius: 999px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.bg.light};
+  background: ${({ theme }) => theme.colors.text.title};
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.text.body};
+  }
+`;
+
 function App() {
   const [isDark, setIsDark] = useState(false);
 
@@ -33,6 +47,9 @@ function App() {
         <Header>
           <h1>Stateful Components</h1>
           <p>React 2주차 과제 - 문서영</p>
+          <ToggleDarkMode onClick={() => setIsDark((prev) => !prev)}>
+            {isDark ? 'Light Mode 💡' : 'Dark Mode 🌙'}
+          </ToggleDarkMode>
         </Header>
         <Form />
       </StyledApp>
