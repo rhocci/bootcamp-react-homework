@@ -49,7 +49,7 @@ function validatePasswordCheck(password, passwordCheck) {
 }
 
 export default function Form() {
-  const [currentForm, setCurrentForm] = useState('signIn');
+  const [currentForm, setCurrentForm] = useState('signUp');
   const [inputValues, setInputValues] = useState(initialValues[currentForm]);
   const [errors, setErrors] = useState({
     name: '',
@@ -78,19 +78,21 @@ export default function Form() {
     setErrors(currentErrors);
 
     if (Object.values(currentErrors).every((v) => v == '')) {
-      setCurrentForm((prevForm) => {
-        if (prevForm === 'signUp') {
-          alert('회원가입 성공!');
-          return 'signIn';
-        } else if (prevForm === 'signIn') {
-          alert('로그인 성공!');
-          return 'signedIn';
-        }
-      });
+      if (currentForm === 'signUp') {
+        alert('회원가입 성공!');
+        setCurrentForm('signIn');
+      } else if (currentForm === 'signIn') {
+        alert('로그인 성공!');
+        setCurrentForm('signedIn');
+      }
     }
   }
 
-  return (
+  return currentForm === 'signedIn' ? (
+    <p style={{ textAlign: 'center', fontWeight: '700', fontSize: '1.4rem' }}>
+      로그인에 성공하셨습니다~!
+    </p>
+  ) : (
     <StyledForm>
       {FORM_FIELDS[currentForm].map((input) => {
         const id = input.id;
