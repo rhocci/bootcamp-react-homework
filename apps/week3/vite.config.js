@@ -49,7 +49,9 @@ export default defineConfig(({ mode }) => {
       },
     },
     define: {
-      'process.env': env,
+      'process.env': {
+        VITE_API_URL: env.VITE_API_URL,
+      },
     },
     build: {
       outDir: 'dist',
