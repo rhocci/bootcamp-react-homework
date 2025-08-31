@@ -1,4 +1,6 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
+import { PokedexContext } from '../../store/pokedex-context.jsx';
 import { POKEMON_TYPE } from './pokemon-types.js';
 
 const StyledTypeSelector = styled.button`
@@ -18,8 +20,10 @@ const StyledTypeSelector = styled.button`
 `;
 
 export default function TypeSelector({ type = 'normal' }) {
+  const { handleTypeSelect } = useContext(PokedexContext);
+
   return (
-    <StyledTypeSelector $type={type}>
+    <StyledTypeSelector $type={type} onClick={() => handleTypeSelect(type)}>
       {POKEMON_TYPE[type].ko}
     </StyledTypeSelector>
   );

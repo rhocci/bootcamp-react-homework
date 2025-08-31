@@ -23,7 +23,7 @@ const STATUS = {
   },
   empty: {
     img: lickitung,
-    message: '이런!<br>검색 결과가 없습니다.',
+    message: '이런! 검색 결과가 없습니다.',
   },
 };
 

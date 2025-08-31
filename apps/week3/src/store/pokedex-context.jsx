@@ -6,6 +6,7 @@ export const PokedexContext = createContext({
   searchQuery: '',
   status: 'loading',
   handleSearchSubmit: () => {},
+  handleTypeSelect: () => {},
 });
 
 export default function PokedexContextProvider({ children }) {
@@ -50,15 +51,27 @@ export default function PokedexContextProvider({ children }) {
     setSelectedType(type);
   }
 
-  const filteredList = selectedType
-    ? pokemonList.filter((pokemon) => pokemon.types.includes(selectedType))
-    : pokemonList.filter((pokemon) => pokemon.name.ko.includes(searchQuery));
+  const filteredList = pokemonList.filter((pokemon) => {
+    const typeValue = selectedType
+      ? pokemon.types.includes(selectedType)
+      : true;
+    const searchValue = pokemon.name.ko.includes(searchQuery);
+
+    return typeValue && searchValue;
+  });
+
+  useEffect(() => {
+    if (status === 'loaded' && filteredList.length === 0) {
+      setStatus('empty');
+    }
+  }, [filteredList, status]);
 
   const ctxValue = {
     pokemonList: filteredList,
     searchQuery,
     status,
     handleSearchSubmit,
+    handleTypeSelect,
   };
 
   return (
