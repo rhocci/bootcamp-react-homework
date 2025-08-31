@@ -49,8 +49,13 @@ export default function Header() {
         <a href="/">Pokédex</a>
       </h1>
       <SearchForm>
-        <Input />
-        <Button type="search" variant="text">
+        <Input
+          type="search"
+          id="search-pokemon"
+          autoComplete="off"
+          spellCheck="false"
+        />
+        <Button type="submit" variant="text" onClick={() => {}}>
           검색
         </Button>
       </SearchForm>

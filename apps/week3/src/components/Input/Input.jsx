@@ -8,6 +8,22 @@ const StyledInput = styled.input`
   border: 1px solid ${({ theme }) => theme.colors.shadow};
 `;
 
-export default function Input() {
-  return <StyledInput />;
+export default function Input({
+  type = 'text',
+  id,
+  name,
+  value,
+  placeholder,
+  ...props
+}) {
+  return (
+    <StyledInput
+      type={type}
+      id={id}
+      name={name}
+      value={value}
+      placeholder={placeholder}
+      {...props}
+    />
+  );
 }
