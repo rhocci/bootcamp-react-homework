@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Button from '../Button/Button.jsx';
+import { POKEMON_TYPE } from '../TypeSelector/pokemon-types.js';
 
 const StyledCard = styled.article`
   border-radius: 0.5rem;
@@ -61,15 +62,6 @@ const CardFooter = styled.footer`
     display: flex;
     justify-content: center;
     column-gap: 0.5rem;
-
-    & li {
-      border-radius: 50px;
-      padding-inline: 1rem;
-      padding-block: 0.25rem;
-      font-weight: 700;
-      font-size: 14px;
-      color: #fff;
-    }
   }
 
   @media screen and (max-width: 768px) {
@@ -81,7 +73,17 @@ const CardFooter = styled.footer`
   }
 `;
 
-export default function Card({ id, name, imgSrc, types = [] }) {
+const Type = styled.li`
+  border-radius: 50px;
+  padding-inline: 1.3rem;
+  padding-block: 0.2rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #fff;
+  background: ${({ $type }) => POKEMON_TYPE[$type]?.color || '#777'};
+`;
+
+export default function Card({ id, name, img, types = [] }) {
   return (
     <StyledCard>
       <CardHeader>
@@ -89,7 +91,7 @@ export default function Card({ id, name, imgSrc, types = [] }) {
         <h2>{name}</h2>
       </CardHeader>
       <CardContent>
-        <img src={imgSrc} alt="" />
+        <img src={img} alt={`${name} 이미지`} />
         <Button type="button" variant="text" onClick={() => {}}>
           상세정보
         </Button>
@@ -97,7 +99,9 @@ export default function Card({ id, name, imgSrc, types = [] }) {
       <CardFooter>
         <ul>
           {types.map((type) => (
-            <li key={type}>{type}</li>
+            <Type key={type} $type={type}>
+              {POKEMON_TYPE[type].ko}
+            </Type>
           ))}
         </ul>
       </CardFooter>

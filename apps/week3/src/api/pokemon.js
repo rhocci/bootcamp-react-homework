@@ -1,5 +1,3 @@
-import { POKEMON_TYPE } from '../components/TypeSelector/pokemon-types.js';
-
 const BASE_URL = 'https://pokeapi.co/api/v2';
 
 export async function fetchPokemonData({ query }) {
@@ -19,9 +17,7 @@ export async function fetchPokemonData({ query }) {
       const koreanDesc =
         species.flavor_text_entries.find((item) => item.language.name === 'ko')
           ?.flavor_text || '상세설명 없음';
-      const koreanTypes = pokemon.types.map(
-        (item) => POKEMON_TYPE[item.type.name].ko
-      );
+      const types = pokemon.types.map((item) => item.type.name);
 
       return {
         id: pokemon.id,
@@ -29,7 +25,7 @@ export async function fetchPokemonData({ query }) {
           en: pokemon.name,
           ko: koreanName,
         },
-        types: koreanTypes,
+        types: types,
         description: koreanDesc,
         sprite: pokemon.sprites.front_default,
       };

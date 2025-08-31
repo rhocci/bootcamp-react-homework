@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import prevPage from '../../assets/icons/arrow-l.svg';
 import nextPage from '../../assets/icons/arrow-r.svg';
+import { POKEMON_TYPE } from '../TypeSelector/pokemon-types.js';
 import Button from '../Button/Button.jsx';
 import TypeSelector from '../TypeSelector/TypeSelector.jsx';
-import { POKEMON_TYPE } from '../TypeSelector/pokemon-types.js';
 
 const StyledToolBar = styled.nav`
   display: flex;

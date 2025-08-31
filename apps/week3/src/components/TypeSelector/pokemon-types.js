@@ -1,7 +1,7 @@
 export const POKEMON_TYPE = {
   grass: { ko: '풀', color: '#3fa129' },
   water: { ko: '물', color: '#2970ef' },
-  fire: { ko: '불', color: '#e62829' },
+  fire: { ko: '불꽃', color: '#e62829' },
   normal: { ko: '노말', color: '#676967' },
   flying: { ko: '비행', color: '#54789b' },
   poison: { ko: '독', color: '#9141cb' },
