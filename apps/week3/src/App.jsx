@@ -3,6 +3,7 @@ import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme.js';
 import Header from './components/Header/Header.jsx';
 import MainContent from './components/MainContent/MainContent.jsx';
+import Card from './components/Card/Card.jsx';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -23,7 +24,9 @@ function App() {
       <GlobalStyle />
       <StyledApp>
         <Header />
-        <MainContent></MainContent>
+        <MainContent>
+          <Card />
+        </MainContent>
       </StyledApp>
     </ThemeProvider>
   );
