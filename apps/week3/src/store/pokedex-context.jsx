@@ -3,34 +3,62 @@ import { fetchPokemonData } from '../api/pokemon.js';
 
 export const PokedexContext = createContext({
   pokemonList: [],
-  filterPokemons: () => {},
+  searchQuery: '',
   status: 'loading',
+  handleSearchSubmit: () => {},
 });
 
 export default function PokedexContextProvider({ children }) {
-  const [searchParams, setSearchParams] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedType, setSelectedType] = useState(null);
   const [pokemonList, setPokemonList] = useState([]);
   const [status, setStatus] = useState('loading');
 
   useEffect(() => {
+    const query = new URLSearchParams(window.location.search).get('q') || '';
+    setSearchQuery(query);
+
     async function loadData() {
-      const data = await fetchPokemonData({ query: 'limit=100&offset=0' });
+      const data = await fetchPokemonData();
       setPokemonList(data);
       setStatus('loaded');
     }
     loadData();
+
+    function handlePopState() {
+      const query = new URLSearchParams(window.location.search).get('q') || '';
+      setSearchQuery(query);
+    }
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
   function handleSearchSubmit(e) {
-    const inputValue = [...e.target.value].trim().toLowercase().toString();
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const inputValue = formData.get('search-pokemon')?.trim() || '';
 
-    setSearchParams(inputValue);
+    setSearchQuery(inputValue);
+
+    const updatedUrl = inputValue
+      ? `?q=${inputValue}`
+      : window.location.pathname;
+    window.history.pushState({}, '', updatedUrl);
   }
 
+  function handleTypeSelect(type) {
+    setSelectedType(type);
+  }
+
+  const filteredList = selectedType
+    ? pokemonList.filter((pokemon) => pokemon.types.includes(selectedType))
+    : pokemonList.filter((pokemon) => pokemon.name.ko.includes(searchQuery));
+
   const ctxValue = {
-    pokemonList: pokemonList,
-    filterPokemons: handleSearchSubmit,
-    status: status,
+    pokemonList: filteredList,
+    searchQuery,
+    status,
+    handleSearchSubmit,
   };
 
   return (

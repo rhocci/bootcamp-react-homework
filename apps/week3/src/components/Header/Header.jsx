@@ -1,4 +1,6 @@
+import { useContext } from 'react';
 import styled, { css } from 'styled-components';
+import { PokedexContext } from '../../store/pokedex-context.jsx';
 import Input from '../Input/Input.jsx';
 import Button from '../Button/Button.jsx';
 
@@ -43,19 +45,22 @@ const SearchForm = styled.form`
 `;
 
 export default function Header() {
+  const { handleSearchSubmit } = useContext(PokedexContext);
+
   return (
     <StyledHeader>
       <h1>
         <a href="/">Pokédex</a>
       </h1>
-      <SearchForm>
+      <SearchForm onSubmit={handleSearchSubmit}>
         <Input
           type="search"
           id="search-pokemon"
+          name="search-pokemon"
           autoComplete="off"
           spellCheck="false"
         />
-        <Button type="submit" variant="text" onClick={() => {}}>
+        <Button type="submit" variant="text">
           검색
         </Button>
       </SearchForm>
