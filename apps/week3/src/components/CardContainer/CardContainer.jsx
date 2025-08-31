@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { PokedexContext } from '../../store/pokedex-context';
 import StatusMessage from '../StatusMessage/StatusMessage';
 import Card from '../Card/Card.jsx';
+import Modal from '../Modal/Modal.jsx';
 
 const StyledContainer = styled.main`
   max-width: 1080px;

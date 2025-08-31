@@ -1,5 +1,7 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
 import Button from '../Button/Button.jsx';
+import { PokedexContext } from '../../store/pokedex-context.jsx';
 import { POKEMON_TYPE } from '../TypeSelector/pokemon-types.js';
 
 const StyledCard = styled.article`
@@ -74,7 +76,7 @@ const CardFooter = styled.footer`
   }
 `;
 
-const Type = styled.li`
+export const Type = styled.li`
   list-style: none;
   border-radius: 50px;
   padding-inline: 1.3rem;
@@ -86,6 +88,8 @@ const Type = styled.li`
 `;
 
 export default function Card({ id, name, img, types = [] }) {
+  const { openModal } = useContext(PokedexContext);
+
   return (
     <StyledCard>
       <CardHeader>
@@ -94,7 +98,7 @@ export default function Card({ id, name, img, types = [] }) {
       </CardHeader>
       <CardContent>
         <img src={img} alt={`${name} 이미지`} />
-        <Button type="button" variant="text" onClick={() => {}}>
+        <Button type="button" variant="text" onClick={() => openModal(id)}>
           상세정보
         </Button>
       </CardContent>

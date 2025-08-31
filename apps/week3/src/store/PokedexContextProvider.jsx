@@ -6,6 +6,7 @@ export default function PokedexContextProvider({ children }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState(null);
   const [pokemonList, setPokemonList] = useState([]);
+  const [selectedPokemon, setSelectedPokemon] = useState(null);
   const [status, setStatus] = useState('loading');
 
   useEffect(() => {
@@ -59,12 +60,18 @@ export default function PokedexContextProvider({ children }) {
     }
   }, [filteredList, status]);
 
+  function openModal(id) {
+    setSelectedPokemon(pokemonList.find((pokemon) => pokemon.id === +id));
+  }
+
   const ctxValue = {
     pokemonList: filteredList,
     searchQuery,
     status,
+    selectedPokemon,
     handleSearchSubmit,
     handleTypeSelect,
+    openModal,
   };
 
   return (

@@ -1,10 +1,11 @@
 import 'galmuri/dist/galmuri.css';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme.js';
+import PokedexContextProvider from './store/PokedexContextProvider.jsx';
 import Header from './components/Header/Header.jsx';
 import ToolBar from './components/ToolBar/ToolBar.jsx';
 import CardContainer from './components/CardContainer/CardContainer.jsx';
-import PokedexContextProvider from './store/PokedexContextProvider.jsx';
+import Modal from './components/Modal/Modal.jsx';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -28,6 +29,7 @@ function App() {
           <Header title="Pokédex" />
           <ToolBar />
           <CardContainer />
+          <Modal />
         </PokedexContextProvider>
       </StyledApp>
     </ThemeProvider>
