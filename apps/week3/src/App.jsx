@@ -7,6 +7,7 @@ import Header from './components/Header/Header.jsx';
 import ToolBar from './components/ToolBar/ToolBar.jsx';
 import CardContainer from './components/CardContainer/CardContainer.jsx';
 import Card from './components/Card/Card.jsx';
+import StatusMessage from './components/StatusMessage/StatusMessage.jsx';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -27,7 +28,7 @@ function App() {
 
   useEffect(() => {
     async function loadData() {
-      const data = await fetchPokemonData({ query: 'limit=20&offset=0' });
+      const data = await fetchPokemonData({ query: 'limit=100&offset=0' });
       setPokemonList(data);
       setIsLoading(false);
     }
@@ -42,7 +43,7 @@ function App() {
         <ToolBar />
         <CardContainer>
           {isLoading ? (
-            <div>로딩중</div>
+            <StatusMessage status="loading" />
           ) : (
             pokemonList.map((pokemon) => (
               <Card
