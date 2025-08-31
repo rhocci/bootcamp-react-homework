@@ -30,25 +30,6 @@ const StyledButton = styled.button`
         }
       `;
     }
-
-    if ($variant === 'filter') {
-      return css`
-        display: flex;
-        flex-direction: column;
-        row-gap: 0.5rem;
-        position: relative;
-        padding-block: 0.25rem;
-        padding-inline: 2rem;
-        width: 120px;
-        box-shadow: 2px 2px 0 ${theme.colors.shadow};
-        text-align: center;
-        line-height: 1.1;
-
-        &:hover ul {
-          max-height: 2000px;
-        }
-      `;
-    }
   }}
 `;
 

@@ -15,24 +15,45 @@ const StyledToolBar = styled.nav`
   transition: max-height 400ms cubic-bezier(0.215, 0.61, 0.355, 1);
 `;
 
-const TypeFilter = styled.ul`
+const TypeFilter = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 10px;
-  position: absolute;
-  background: ${({ theme }) => theme.colors.bg.card};
-  top: 25px;
-  left: -1px;
-  width: 101%;
-  max-height: 0;
-  padding-inline: 0.5rem;
+  row-gap: 0.5rem;
+  position: relative;
+  padding-block: 0.25rem;
+  padding-inline: 2rem;
+  width: 120px;
   border: 1px solid ${({ theme }) => theme.colors.text};
-  border-top: none;
-  border-radius: 0 0 4px 4px;
+  border-radius: 0.125rem;
+  background: ${({ theme }) => theme.colors.bg.card};
   box-shadow: 2px 2px 0 ${({ theme }) => theme.colors.shadow};
-  transition: max-height 0.3s ease-in-out;
-  overflow: hidden;
-  z-index: 998;
+  text-align: center;
+  line-height: 1.1;
+  cursor: pointer;
+
+  &:hover ul {
+    max-height: 2000px;
+  }
+
+  & ul {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    position: absolute;
+    background: ${({ theme }) => theme.colors.bg.card};
+    top: 25px;
+    left: -1px;
+    width: 101%;
+    max-height: 0;
+    padding-inline: 0.5rem;
+    border: 1px solid ${({ theme }) => theme.colors.text};
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 2px 2px 0 ${({ theme }) => theme.colors.shadow};
+    transition: max-height 0.3s ease-in-out;
+    overflow: hidden;
+    z-index: 998;
+  }
 `;
 
 const PageController = styled.div`
@@ -51,16 +72,16 @@ const PageController = styled.div`
 export default function ToolBar({ currentPage = 1 }) {
   return (
     <StyledToolBar>
-      <Button variant="filter">
+      <TypeFilter>
         <span>필터</span>
-        <TypeFilter>
+        <ul>
           {Object.entries(POKEMON_TYPE).map((type) => (
-            <li>
+            <li key={type[0]}>
               <TypeSelector type={type[0]} />
             </li>
           ))}
-        </TypeFilter>
-      </Button>
+        </ul>
+      </TypeFilter>
 
       <PageController>
         <Button variant="icon" label="이전 페이지로">

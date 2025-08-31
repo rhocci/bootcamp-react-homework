@@ -1,9 +1,11 @@
 import 'galmuri/dist/galmuri.css';
+import { useEffect, useState } from 'react';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme.js';
+import { fetchPokemonData } from './api/pokemon.js';
 import Header from './components/Header/Header.jsx';
 import ToolBar from './components/ToolBar/ToolBar.jsx';
-import MainContent from './components/MainContent/MainContent.jsx';
+import MainContent from './components/CardContainer/CardContainer.jsx';
 import Card from './components/Card/Card.jsx';
 
 const GlobalStyle = createGlobalStyle`

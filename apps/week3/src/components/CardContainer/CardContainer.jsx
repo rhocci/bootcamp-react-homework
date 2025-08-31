@@ -14,6 +14,6 @@ const StyledContainer = styled.main`
   }
 `;
 
-export default function MainContent({ children }) {
+export default function CardContainer({ children }) {
   return <StyledContainer>{children}</StyledContainer>;
 }
