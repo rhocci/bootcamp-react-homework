@@ -2,6 +2,7 @@ import 'galmuri/dist/galmuri.css';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme.js';
 import Header from './components/Header/Header.jsx';
+import ToolBar from './components/ToolBar/ToolBar.jsx';
 import MainContent from './components/MainContent/MainContent.jsx';
 import Card from './components/Card/Card.jsx';
 
@@ -24,6 +25,7 @@ function App() {
       <GlobalStyle />
       <StyledApp>
         <Header />
+        <ToolBar />
         <MainContent>
           <Card />
         </MainContent>

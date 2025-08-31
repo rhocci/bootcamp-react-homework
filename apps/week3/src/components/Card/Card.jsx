@@ -43,7 +43,6 @@ const CardContent = styled.div`
     padding: 0.375rem;
     border-radius: 0.75rem;
     color: #444;
-    background: ${({ theme }) => theme.colors.bg.body};
     box-shadow: 1px 2px 0 #00000030;
     font-size: 0.9rem;
 

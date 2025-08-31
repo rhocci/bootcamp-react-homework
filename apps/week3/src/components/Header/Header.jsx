@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import Input from '../Input/Input.jsx';
+import Button from '../Button/Button.jsx';
 
 const StyledHeader = styled.header`
   display: flex;
@@ -36,13 +37,23 @@ const StyledHeader = styled.header`
   }
 `;
 
+const SearchForm = styled.form`
+  display: flex;
+  column-gap: 0.5rem;
+`;
+
 export default function Header() {
   return (
     <StyledHeader>
       <h1>
         <a href="/">Pokédex</a>
       </h1>
-      <Input />
+      <SearchForm>
+        <Input />
+        <Button type="search" variant="text">
+          검색
+        </Button>
+      </SearchForm>
     </StyledHeader>
   );
 }
