@@ -4,7 +4,7 @@ import { theme } from './styles/theme.js';
 import Header from './components/Header/Header.jsx';
 import ToolBar from './components/ToolBar/ToolBar.jsx';
 import CardContainer from './components/CardContainer/CardContainer.jsx';
-import PokedexContextProvider from './store/pokedex-context.jsx';
+import PokedexContextProvider from './store/PokedexContextProvider.jsx';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -25,7 +25,7 @@ function App() {
       <GlobalStyle />
       <StyledApp>
         <PokedexContextProvider>
-          <Header />
+          <Header title="Pokédex" />
           <ToolBar />
           <CardContainer />
         </PokedexContextProvider>

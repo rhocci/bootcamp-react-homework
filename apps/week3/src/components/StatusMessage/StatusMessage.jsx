@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import igglybuff from '../../assets/images/igglybuff.webp';
 import lickitung from '../../assets/images/lickitung.webp';
 
-const StyledMessage = styled.div`
+export const StyledMessage = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 1.6rem;
@@ -36,5 +36,16 @@ export default function StatusMessage({ status }) {
       <strong>{message}</strong>
     </StyledMessage>,
     document.getElementById('message')
+  );
+}
+
+export function DefaultStatusMessage({ status }) {
+  const { img, message } = STATUS[status];
+
+  return (
+    <StyledMessage>
+      <img src={img} alt="" />
+      <strong>{message}</strong>
+    </StyledMessage>
   );
 }

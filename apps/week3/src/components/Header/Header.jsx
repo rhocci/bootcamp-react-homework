@@ -44,13 +44,13 @@ const SearchForm = styled.form`
   column-gap: 0.5rem;
 `;
 
-export default function Header() {
+export default function Header({ title }) {
   const { handleSearchSubmit } = useContext(PokedexContext);
 
   return (
     <StyledHeader>
       <h1>
-        <a href="/">Pokédex</a>
+        <a href="/">{title}</a>
       </h1>
       <SearchForm onSubmit={handleSearchSubmit}>
         <Input

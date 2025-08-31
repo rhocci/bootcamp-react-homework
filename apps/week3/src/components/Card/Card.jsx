@@ -14,7 +14,7 @@ const StyledCard = styled.article`
 const CardHeader = styled.header`
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   padding: 0.75rem;
 
   & span {
@@ -59,12 +59,13 @@ const CardFooter = styled.footer`
   padding-bottom: 0.75rem;
 
   & ul {
+    padding: 0;
     display: flex;
     justify-content: center;
     column-gap: 0.5rem;
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 576px) {
     & ul {
       flex-direction: column;
       align-items: center;
@@ -74,6 +75,7 @@ const CardFooter = styled.footer`
 `;
 
 const Type = styled.li`
+  list-style: none;
   border-radius: 50px;
   padding-inline: 1.3rem;
   padding-block: 0.2rem;
