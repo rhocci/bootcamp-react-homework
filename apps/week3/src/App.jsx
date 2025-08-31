@@ -1,13 +1,10 @@
 import 'galmuri/dist/galmuri.css';
-import { useEffect, useState } from 'react';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme.js';
-import { fetchPokemonData } from './api/pokemon.js';
 import Header from './components/Header/Header.jsx';
 import ToolBar from './components/ToolBar/ToolBar.jsx';
 import CardContainer from './components/CardContainer/CardContainer.jsx';
-import Card from './components/Card/Card.jsx';
-import StatusMessage from './components/StatusMessage/StatusMessage.jsx';
+import PokedexContextProvider from './store/pokedex-context.jsx';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -23,39 +20,15 @@ const StyledApp = styled.div`
 `;
 
 function App() {
-  const [pokemonList, setPokemonList] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    async function loadData() {
-      const data = await fetchPokemonData({ query: 'limit=100&offset=0' });
-      setPokemonList(data);
-      setIsLoading(false);
-    }
-    loadData();
-  }, []);
-
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <StyledApp>
-        <Header />
-        <ToolBar />
-        <CardContainer>
-          {isLoading ? (
-            <StatusMessage status="loading" />
-          ) : (
-            pokemonList.map((pokemon) => (
-              <Card
-                key={pokemon.id}
-                id={pokemon.id}
-                name={pokemon.name.ko}
-                img={pokemon.sprite}
-                types={pokemon.types}
-              ></Card>
-            ))
-          )}
-        </CardContainer>
+        <PokedexContextProvider>
+          <Header />
+          <ToolBar />
+          <CardContainer />
+        </PokedexContextProvider>
       </StyledApp>
     </ThemeProvider>
   );
