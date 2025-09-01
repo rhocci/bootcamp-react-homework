@@ -15,6 +15,11 @@ const StyledModal = styled.dialog`
   border-radius: 0.5rem;
   border: 1px solid ${({ theme }) => theme.colors.shadow};
   box-shadow: 2px 2px 0 ${({ theme }) => theme.colors.shadow};
+
+  &::backdrop {
+    background: #00000045;
+    backdrop-filter: blur(2px);
+  }
 `;
 
 const ImgWrapper = styled.div`
