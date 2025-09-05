@@ -34,26 +34,26 @@
   → `libs/supabase/index.ts` 파일은 아래와 같이 정의
 
   ```tsx
-  import { createClient } from '@supabase/supabase-js';
+  import { createClient } from "@supabase/supabase-js";
   import type {
     Database,
     Tables,
     TablesInsert,
     TablesUpdate,
-  } from './database.types';
+  } from "./database.types";
 
   const { VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY } = import.meta.env;
 
   const supabase = createClient<Database>(
     VITE_SUPABASE_URL!,
-    VITE_SUPABASE_ANON_KEY!
+    VITE_SUPABASE_ANON_KEY!,
   );
 
   export default supabase;
 
-  export type Profile = Tables<'profiles'>;
-  export type ProfileInsert = TablesInsert<'profiles'>;
-  export type ProfileUpdate = TablesUpdate<'profiles'>;
+  export type Profile = Tables<"profiles">;
+  export type ProfileInsert = TablesInsert<"profiles">;
+  export type ProfileUpdate = TablesUpdate<"profiles">;
   ```
 
   - `libs/supabase/database.types.ts` 에 생성된 타입 정의 import
@@ -72,28 +72,45 @@
   이후 앱 전체에 적용되도록 `main.jsx` 에 import 후 래핑.
 
   ```tsx
-  import { StrictMode } from 'react';
-  import { createRoot } from 'react-dom/client';
-  import { BrowserRouter } from 'react-router-dom';
-  import '../../../common/styles/index.css';
-  import App from './App';
+  import { StrictMode } from "react";
+  import { createRoot } from "react-dom/client";
+  import { BrowserRouter } from "react-router-dom";
+  import "../../../common/styles/index.css";
+  import App from "./App";
 
-  createRoot(document.getElementById('root')!).render(
+  createRoot(document.getElementById("root")!).render(
     <StrictMode>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </StrictMode>
+    </StrictMode>,
   );
   ```
 
 - [**React Hot Toast**](https://react-hot-toast.com/)
 - [**React Hook Form**](https://react-hook-form.com/)
 - [**Tailwind CSS**](https://tailwindcss.com/)
+
   ```bash
   bun add react-hot-toast
   bun add react-hook-form
   bun add tailwindcss @tailwindcss/vite
+  ```
+
+- **[Prettier Plugin for Tailwind CSS](https://tailwindcss.com/blog/automatic-class-sorting-with-prettier)**
+
+  ```bash
+  bun add -d prettier prettier-plugin-tailwindcss
+  ```
+
+  `.prettierrc` 는 아래와 같이 유틸 함수 안에서도 정렬 기능이 동작하도록 설정하였다.
+
+  ```tsx
+  {
+    "plugins": ["prettier-plugin-tailwindcss"],
+    "tailwindStylesheet": "./src/main.css",
+    "tailwindFunctions": ["tw"]
+  }
   ```
 
 ### 과제 요구사항 분석
