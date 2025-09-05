@@ -5,7 +5,6 @@ type InputProps = {
   id?: string;
   name: string;
   label?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 export default function Input({
@@ -13,7 +12,6 @@ export default function Input({
   id,
   name,
   label,
-  onChange,
   ...props
 }: InputProps) {
   const {
@@ -23,23 +21,33 @@ export default function Input({
 
   return (
     <div>
-      <label htmlFor={id ?? name} className="block text-sm/6 text-gray-700">
-        {label}
-      </label>
-      <div className="mt-1.5 rounded-sm border border-blue-300 focus-within:outline-1">
+      <div className="m-2 flex items-center justify-between">
+        {label && (
+          <label
+            htmlFor={id ?? name}
+            className="block font-[400] text-slate-400"
+          >
+            {label}
+          </label>
+        )}
+        {errors[name] && (
+          <p className="mt-1 text-sm text-red-500">
+            {errors[name]?.message as string}
+          </p>
+        )}
+      </div>
+      <div className="rounded-md bg-indigo-50 focus-within:outline-1 focus-within:outline-offset-1 focus-within:outline-indigo-600">
         <input
           {...register(name)}
           type={type}
           id={id ?? name}
           name={name}
-          onChange={onChange}
-          className={tw(
-            "sm-text-sm/6 block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none",
-            error && "border-red-500",
-          )}
           {...props}
+          className={tw(
+            "sm-text-sm/6 w-full grow px-4 py-3 text-base font-light text-gray-800 placeholder:text-gray-500 focus:outline-none",
+            errors[name] && "border-rose-500",
+          )}
         />
-        {errors[name] && <p>{errors[name]?.message as string}</p>}
       </div>
     </div>
   );
