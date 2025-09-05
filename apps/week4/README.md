@@ -57,7 +57,7 @@
   ```
 
   - `libs/supabase/database.types.ts` 에 생성된 타입 정의 import
-  - `/process.env` 에 대시보드 url, anon key 저장 후 import
+  - `/.env` 에 대시보드 url, anon key 저장 후 import
   - `createClient` API로 supabase 클라이언트 인스턴스 생성 후 export
   - `Tables` , `TablesInsert` , `TablesUpadate` 타입을 import하고 `'profiles'` 제네릭 인자 전달  
     -> 반환된 테이블 Row 타입들을 각각 `Profile` , `ProfileInsert` , `ProfileUpdate` 별칭으로 지정 후 export

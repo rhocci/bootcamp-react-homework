@@ -1,13 +1,31 @@
 import { useForm, FormProvider } from "react-hook-form";
 import type { SigninForm } from "@/@types/forms";
+import supabase from "@/libs/supabase";
 import Input from "@/components/Input";
+import toast from "react-hot-toast";
 
 export default function SignIn() {
   const methods = useForm<SigninForm>({
     mode: "onChange",
   });
 
-  const onSubmit = () => {};
+  const onSubmit = async (formData: SigninForm) => {
+    try {
+      const { error, data } = await supabase.auth.signInWithPassword(formData);
+
+      if (error) {
+        toast.error("로그인 실패: " + error.message);
+        return;
+      }
+
+      if (data.user) {
+        const { username } = data.user.user_metadata;
+        toast.success(`환영합니다, ${username}님!`);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div>
