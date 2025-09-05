@@ -1,7 +1,7 @@
 import { useFormContext, RegisterOptions } from "react-hook-form";
 import { tw } from "@/utils";
 
-type InputProps = {
+type Props = {
   id?: string;
   name: string;
   label?: string;
@@ -15,7 +15,7 @@ export default function Input({
   label,
   rules,
   ...props
-}: InputProps) {
+}: Props) {
   const {
     register,
     formState: { errors },

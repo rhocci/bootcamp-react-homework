@@ -1,5 +1,6 @@
-import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import Nav from "./components/Nav";
 import Dashboard from "./pages/dashboard";
 import Profile from "./pages/profile";
 import SignIn from "./pages/sign-in";
@@ -9,50 +10,20 @@ function App() {
   return (
     <BrowserRouter>
       <Toaster />
-      <div className="flex min-h-screen items-center justify-center gap-8 bg-gray-200">
-        <nav className="flex flex-col gap-2">
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              isActive ? "text-blue-800" : undefined
-            }
-          >
-            대시보드
-          </NavLink>
-          <NavLink
-            to="/profile"
-            className={({ isActive }) =>
-              isActive ? "text-blue-800" : undefined
-            }
-          >
-            프로필
-          </NavLink>
-          <NavLink
-            to="/signin"
-            className={({ isActive }) =>
-              isActive ? "text-blue-800" : undefined
-            }
-          >
-            로그인
-          </NavLink>
-          <NavLink
-            to="/signup"
-            className={({ isActive }) =>
-              isActive ? "text-blue-800" : undefined
-            }
-          >
-            회원가입
-          </NavLink>
-        </nav>
-
-        <main className="min-w-xl rounded-xl bg-white p-6">
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
-          </Routes>
-        </main>
+      <div className="flex min-h-screen items-center justify-center gap-8 bg-white md:bg-gray-200">
+        <div className="flex w-full overflow-hidden rounded-lg shadow-slate-300 md:w-[80%] md:max-w-4xl md:shadow-xl">
+          <aside className="hidden bg-indigo-600 pb-10 pl-20 md:flex md:items-end">
+            <Nav user={null} />
+          </aside>
+          <main className="flex-1 px-5 py-20 md:bg-white md:px-15">
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/signin" element={<SignIn />} />
+              <Route path="/signup" element={<SignUp />} />
+            </Routes>
+          </main>
+        </div>
       </div>
     </BrowserRouter>
   );
