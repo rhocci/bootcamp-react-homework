@@ -4,7 +4,7 @@
 
 ## 🔖 목차
 
-- [환경 구성 + 트리 구조 잡기](#-환경-구성--트리-구조-잡기)
+- [환경 구성](#-환경-구성)
   - [초기 환경 구성](#초기-환경-구성)
   - [과제 요구사항 분석](#과제-요구사항-분석)
   - [폴더 구성](#폴더-구성)
@@ -14,7 +14,7 @@
 
 ---
 
-## 📁 환경 구성 + 트리 구조 잡기
+## 📁 환경 구성
 
 ### 초기 환경 구성
 
@@ -87,10 +87,13 @@
   );
   ```
 
-- [**React Hot Toast**](https://react-hot-toast.com/)  
-  → 간편한 토스터 알림 제작을 위해 `react-hot-toast` 라이브러리 설치
+- [**React Hot Toast**](https://react-hot-toast.com/)
+- [**React Hook Form**](https://react-hook-form.com/)
+- [**Tailwind CSS**](https://tailwindcss.com/)
   ```bash
   bun add react-hot-toast
+  bun add react-hook-form
+  bun add tailwindcss @tailwindcss/vite
   ```
 
 ### 과제 요구사항 분석
