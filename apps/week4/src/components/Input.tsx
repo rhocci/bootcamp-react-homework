@@ -1,10 +1,11 @@
-import { useFormContext } from "react-hook-form";
+import { useFormContext, RegisterOptions } from "react-hook-form";
 import { tw } from "@/utils";
 
 type InputProps = {
   id?: string;
   name: string;
   label?: string;
+  rules?: RegisterOptions;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 export default function Input({
@@ -12,6 +13,7 @@ export default function Input({
   id,
   name,
   label,
+  rules,
   ...props
 }: InputProps) {
   const {
@@ -38,7 +40,7 @@ export default function Input({
       </div>
       <div className="rounded-md bg-indigo-50 focus-within:outline-1 focus-within:outline-offset-1 focus-within:outline-indigo-600">
         <input
-          {...register(name)}
+          {...register(name, rules)}
           type={type}
           id={id ?? name}
           name={name}

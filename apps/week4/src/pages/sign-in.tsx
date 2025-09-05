@@ -33,7 +33,7 @@ export default function SignIn() {
         로그인
       </h2>
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <form onSubmit={methods.handleSubmit(onSubmit)} autoComplete="off">
           <div className="mb-12 flex flex-col gap-y-3">
             <Input name="email" label="Email" placeholder="email@naver.com" />
             <Input type="password" name="password" label="Password" />
