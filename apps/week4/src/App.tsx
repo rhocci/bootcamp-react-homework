@@ -1,45 +1,57 @@
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
-import DashboardPage from "./pages/dashboard";
-import ProfilePage from "./pages/profile";
-import SignInPage from "./pages/sign-in";
-import SignUpPage from "./pages/sign-up";
+import Dashboard from "./pages/dashboard";
+import Profile from "./pages/profile";
+import SignIn from "./pages/sign-in";
+import SignUp from "./pages/sign-up";
 
 function App() {
   return (
     <BrowserRouter>
-      <nav className="flex flex-col gap-2">
-        <NavLink
-          to="/"
-          className={({ isActive }) => (isActive ? "text-blue-800" : undefined)}
-        >
-          대시보드
-        </NavLink>
-        <NavLink
-          to="/profile"
-          className={({ isActive }) => (isActive ? "text-blue-800" : undefined)}
-        >
-          프로필
-        </NavLink>
-        <NavLink
-          to="/signin"
-          className={({ isActive }) => (isActive ? "text-blue-800" : undefined)}
-        >
-          회원가입
-        </NavLink>
-        <NavLink
-          to="/signup"
-          className={({ isActive }) => (isActive ? "text-blue-800" : undefined)}
-        >
-          로그인
-        </NavLink>
-      </nav>
+      <div className="flex min-h-screen items-center justify-center gap-8 bg-gray-200">
+        <nav className="flex flex-col gap-2">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive ? "text-blue-800" : undefined
+            }
+          >
+            대시보드
+          </NavLink>
+          <NavLink
+            to="/profile"
+            className={({ isActive }) =>
+              isActive ? "text-blue-800" : undefined
+            }
+          >
+            프로필
+          </NavLink>
+          <NavLink
+            to="/signin"
+            className={({ isActive }) =>
+              isActive ? "text-blue-800" : undefined
+            }
+          >
+            로그인
+          </NavLink>
+          <NavLink
+            to="/signup"
+            className={({ isActive }) =>
+              isActive ? "text-blue-800" : undefined
+            }
+          >
+            회원가입
+          </NavLink>
+        </nav>
 
-      <Routes>
-        <Route path="/" element={<DashboardPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/signin" element={<SignInPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-      </Routes>
+        <main className="min-w-xl rounded-xl bg-white p-6">
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
+          </Routes>
+        </main>
+      </div>
     </BrowserRouter>
   );
 }
