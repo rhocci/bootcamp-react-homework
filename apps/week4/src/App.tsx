@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 import Dashboard from "./pages/dashboard";
 import Profile from "./pages/profile";
 import SignIn from "./pages/sign-in";
@@ -7,6 +8,7 @@ import SignUp from "./pages/sign-up";
 function App() {
   return (
     <BrowserRouter>
+      <Toaster />
       <div className="flex min-h-screen items-center justify-center gap-8 bg-gray-200">
         <nav className="flex flex-col gap-2">
           <NavLink

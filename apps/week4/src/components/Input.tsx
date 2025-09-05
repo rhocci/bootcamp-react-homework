@@ -38,17 +38,20 @@ export default function Input({
           </p>
         )}
       </div>
-      <div className="rounded-md bg-indigo-50 focus-within:outline-1 focus-within:outline-offset-1 focus-within:outline-indigo-600">
+      <div
+        className={tw(
+          "rounded-md bg-indigo-50 focus-within:outline-1 focus-within:outline-offset-1 focus-within:outline-indigo-600",
+          errors[name] &&
+            "outline outline-offset-1 outline-red-500 focus-within:outline-red-500",
+        )}
+      >
         <input
           {...register(name, rules)}
           type={type}
           id={id ?? name}
           name={name}
           {...props}
-          className={tw(
-            "sm-text-sm/6 w-full grow px-4 py-3 text-base font-light text-gray-800 placeholder:text-gray-500 focus:outline-none",
-            errors[name] && "border-rose-500",
-          )}
+          className="sm-text-sm/6 w-full grow px-4 py-3 text-base font-light text-gray-800 placeholder:text-gray-500 focus:outline-none"
         />
       </div>
     </div>
