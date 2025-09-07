@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Profile } from "@/libs/supabase";
 import { fetchProfileData } from "@/api/profileData";
 
@@ -8,12 +9,16 @@ type Dashboard = Pick<
 >;
 
 export default function Dashboard() {
+  const navigate = useNavigate();
   const [dashboard, setDashboard] = useState<Dashboard | null>(null);
 
   useEffect(() => {
     const fetchDashboard = async () => {
       const data = await fetchProfileData();
-      if (!data) return;
+      if (!data) {
+        navigate("/login");
+        return;
+      }
 
       const dashboardData: Dashboard = data;
 
@@ -21,7 +26,7 @@ export default function Dashboard() {
     };
 
     fetchDashboard();
-  }, []);
+  }, [navigate]);
 
   return (
     <div className="w-full">

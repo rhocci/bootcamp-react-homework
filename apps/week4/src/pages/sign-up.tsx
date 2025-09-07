@@ -6,8 +6,8 @@ import { SignupForm } from "@/@types/forms";
 import supabase from "@/libs/supabase";
 import { tw, emailRules, passwordRules, usernameRules } from "@/utils";
 import Input from "@/components/Input";
-import defaultProfileImg from "@assets/avatar.jpg";
 import Textarea from "@/components/Textarea";
+import UploadAvatar from "@/components/UploadAvatar";
 
 export default function Signup() {
   const methods = useForm<SignupForm>({ mode: "onChange" });
@@ -16,7 +16,7 @@ export default function Signup() {
   const [step, setStep] = useState(1);
   const [formattedPhone, setFormattedPhone] = useState("");
   const [uploadedImage, setUploadedImage] = useState<string | undefined>(
-    defaultProfileImg,
+    undefined,
   );
 
   const buttonClasses =
@@ -149,7 +149,7 @@ export default function Signup() {
             </div>
             <div className={step === 2 ? "" : "hidden"}>
               <div className="text-center">
-                <label
+                {/* <label
                   htmlFor="image"
                   className="mb-2 block font-[400] text-slate-400"
                 >
@@ -176,7 +176,12 @@ export default function Signup() {
                     title="프로필 사진"
                     className="h-full w-full object-cover"
                   />
-                </button>
+                </button> */}
+                <UploadAvatar
+                  ref={inputImage}
+                  onUpload={handleChangeImage}
+                  uploadedImage={uploadedImage}
+                />
               </div>
               <Input name="username" label="이름" rules={usernameRules} />
               <Textarea
@@ -215,7 +220,6 @@ export default function Signup() {
             ) : (
               <button
                 type="button"
-                disabled={methods.formState.isSubmitting}
                 onClick={async () => {
                   const valid = await methods.trigger([
                     "email",

@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 export async function fetchProfileData(): Promise<Profile | null> {
   const { data: userData, error: userError } = await supabase.auth.getUser();
   if (userError) {
-    toast.error("로그인이 필요합니다.");
+    toast.error("로그인이 필요한 페이지입니다.");
     return null;
   }
 
