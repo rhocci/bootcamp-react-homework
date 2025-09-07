@@ -26,6 +26,7 @@ export default function Signup() {
     try {
       const { data: userData, error: authError } = await supabase.auth.signUp({
         email: formData.email,
+        password: formData.password,
         options: {
           data: {
             username: formData.username,
@@ -71,8 +72,8 @@ export default function Signup() {
         username: formData.username,
         phone: formData.phone,
         bio: formData.bio,
-        created_at: new Date().toISOString(),
         profile_url: profileUrl,
+        created_at: new Date().toISOString(),
       });
 
       if (signupError)
