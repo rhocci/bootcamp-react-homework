@@ -1,31 +1,23 @@
 import { useEffect, useState } from "react";
-import supabase, { Profile } from "@/libs/supabase";
-import toast from "react-hot-toast";
+import { Profile } from "@/libs/supabase";
+import { fetchProfileData } from "@/api/profileData";
 
-type Dashboard = Omit<Profile, "email,password">;
+type Dashboard = Pick<
+  Profile,
+  "email" | "username" | "phone" | "bio" | "created_at"
+>;
 
 export default function Dashboard() {
   const [dashboard, setDashboard] = useState<Dashboard | null>(null);
 
   useEffect(() => {
     const fetchDashboard = async () => {
-      const { data: userData, error: userError } =
-        await supabase.auth.getUser();
-      if (userError) return toast.error("로그인이 필요합니다.");
-      if (!userData.user) return;
+      const data = await fetchProfileData();
+      if (!data) return;
 
-      const { data: profileData, error: profileError } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("id", userData.user.id)
-        .single();
+      const dashboardData: Dashboard = data;
 
-      if (profileError)
-        return toast.error(
-          `사용자 정보 불러오기에 실패했습니다.\n ${profileError.code}: ${profileError.message}`,
-        );
-
-      setDashboard(profileData);
+      setDashboard(dashboardData);
     };
 
     fetchDashboard();
@@ -35,12 +27,19 @@ export default function Dashboard() {
     <div className="w-full">
       {dashboard ? (
         <>
-          <header className="flex flex-col gap-y-2">
-            <h2 className="">{dashboard.username}</h2>
-            <p>{dashboard.phone}</p>
-            <p>{dashboard.created_at} 가입</p>
+          <header className="relative mb-20 flex flex-col gap-y-2 after:absolute after:right-0 after:-bottom-4 after:left-0 after:border-b after:border-b-gray-300">
+            <h2 className="text-2xl font-[700]">{dashboard.username}</h2>
+            <div className="font-[400] text-gray-500">
+              <p>{dashboard.email}</p>
+              <p>{dashboard.phone}</p>
+              <p>{dashboard.created_at} 가입</p>
+            </div>
           </header>
-          <p>{dashboard.bio ? dashboard.bio : "등록된 자기소개가 없습니다."}</p>
+          <div className="min-h-40 w-full rounded-lg bg-indigo-100 p-5 text-gray-800">
+            <p className="">
+              {dashboard.bio ? dashboard.bio : "등록된 자기소개가 없습니다."}
+            </p>
+          </div>
         </>
       ) : (
         <p>불러오는 중...</p>
