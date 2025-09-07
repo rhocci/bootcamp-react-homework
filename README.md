@@ -9,4 +9,4 @@
 | 1주차 | [Stateless 컴포넌트 만들기](./apps/week1/README.md)         | [Vercel](https://bootcamp-react-homework-week1.vercel.app/) | -                                                |
 | 2주차 | [Stateful 컴포넌트 만들기](./apps/week2/README.md)          | [Vercel](https://bootcamp-react-homework-week2.vercel.app)  | -                                                |
 | 3주차 | [Search List UI 포켓몬 도감 만들기](./apps/week3/README.md) | [Vercel](https://bootcamp-react-homework-week3.vercel.app/) | [Storybook](https://storybook-week3.vercel.app/) |
-| 4주차 | [React × Supabase SPA](./apps/week4/README.md) | Vercel | Storybook |
+| 4주차 | [React × Supabase SPA](./apps/week4/README.md)              | [Vercel](https://bootcamp-react-homework-week4.vercel.app/) | -                                                |
