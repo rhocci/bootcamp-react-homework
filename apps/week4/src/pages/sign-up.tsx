@@ -1,12 +1,13 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
+import toast from "react-hot-toast";
+import { SignupForm } from "@/@types/forms";
+import supabase from "@/libs/supabase";
 import { tw, emailRules, passwordRules, usernameRules } from "@/utils";
-import type { SignupForm } from "@/@types/forms";
 import Input from "@/components/Input";
 import defaultAvatarImg from "@assets/avatar.jpg";
-import supabase from "@/libs/supabase";
-import toast from "react-hot-toast";
+import Textarea from "@/components/Textarea";
 
 export default function Signup() {
   const methods = useForm<SignupForm>({ mode: "onChange" });
@@ -25,7 +26,6 @@ export default function Signup() {
     try {
       const { data: userData, error: authError } = await supabase.auth.signUp({
         email: formData.email,
-        password: formData.password,
         options: {
           data: {
             username: formData.username,
@@ -71,6 +71,7 @@ export default function Signup() {
         username: formData.username,
         phone: formData.phone,
         bio: formData.bio,
+        created_at: new Date().toISOString(),
         profile_url: profileUrl,
       });
 
@@ -177,21 +178,12 @@ export default function Signup() {
                 </button>
               </div>
               <Input name="username" label="이름" rules={usernameRules} />
-              <div>
-                <label
-                  htmlFor="bio"
-                  className="m-2 block font-[400] text-slate-400"
-                >
-                  자기소개
-                </label>
-                <textarea
-                  name="bio"
-                  id="bio"
-                  placeholder="자기소개는 100자 이하로 작성해주세요."
-                  maxLength={100}
-                  className="sm-text-sm/6 flex w-full grow resize-none gap-x-2 rounded-md bg-indigo-50 px-4 py-3 text-base font-light text-gray-800 placeholder:text-gray-500 focus:outline-1 focus:outline-offset-1 focus:outline-indigo-600"
-                />
-              </div>
+              <Textarea
+                name="bio"
+                label="자기소개"
+                placeholder="자기소개는 100자 이하로 작성해주세요."
+                maxLength={100}
+              />
             </div>
           </div>
           <div className="flex gap-x-4">
