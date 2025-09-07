@@ -23,7 +23,7 @@ export const usernameRules = {
     message: "닉네임은 최대 20자까지 입력 가능합니다.",
   },
   pattern: {
-    value: "/^[A-Za-z0-9가-힣]+$/",
+    value: /^[A-Za-z0-9가-힣]+$/,
     message: "닉네임은 특수문자를 포함할 수 없습니다.",
   },
 };
