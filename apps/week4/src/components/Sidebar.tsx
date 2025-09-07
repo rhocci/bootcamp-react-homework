@@ -9,22 +9,21 @@ type Props = {
   children: React.ReactNode;
 };
 
-export default function Nav({ user }: Props) {
+export default function Sidebar({ user }: Props) {
   return (
-    <nav className="flex flex-col gap-y-2">
-      <NavItem to="/" user={user}>
-        Home
-      </NavItem>
-      <NavItem to="/profile" user={user} authRequired>
-        Profile
-      </NavItem>
-      <NavItem to="/signup" user={user}>
-        Signup
-      </NavItem>
-      <NavItem to="/signin" user={user}>
-        Signin
-      </NavItem>
-    </nav>
+    <aside className="hidden bg-indigo-600 pb-10 pl-20 md:flex md:items-end">
+      <nav className="flex flex-col gap-y-2">
+        <NavItem to="/" user={user}>
+          Home
+        </NavItem>
+        <NavItem to="/profile" user={user} authRequired>
+          Profile
+        </NavItem>
+        <NavItem to={user ? "/signup" : "/signin"} user={user}>
+          {user ? "Logout" : "Login"}
+        </NavItem>
+      </nav>
+    </aside>
   );
 }
 
