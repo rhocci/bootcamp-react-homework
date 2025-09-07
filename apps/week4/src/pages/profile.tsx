@@ -30,7 +30,13 @@ export default function Profile() {
         return;
       }
 
-      const profileData: ProfileForm = data;
+      const profileData: ProfileForm = {
+        email: data.email ?? "",
+        username: data.username ?? "",
+        phone: data.phone ?? "",
+        bio: data.bio ?? "",
+        profile_url: data.profile_url ?? "",
+      };
 
       setProfileForm(profileData);
     };
