@@ -1,10 +1,10 @@
 import { useNavigate, Link } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
-import type { LoginForm } from "@/@types/forms";
-import supabase from "@/libs/supabase";
-import Input from "@/components/Input";
 import toast from "react-hot-toast";
+import supabase from "@/libs/supabase";
+import type { LoginForm } from "@/@types/forms";
 import { emailRules, passwordRules } from "@/utils/validators";
+import Input from "@/components/Input";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -14,26 +14,16 @@ export default function Login() {
   });
 
   const onSubmit = async (formData: LoginForm) => {
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword(formData);
+    const { data, error } = await supabase.auth.signInWithPassword(formData);
 
-      if (error) {
-        toast.error(`로그인 실패!\n ${error.status}: ${error.message}`);
-        return;
-      }
+    if (error)
+      return toast.error(`로그인 실패!\n ${error.status}: ${error.message}`);
 
-      if (data?.user) {
-        const username = data.user.user_metadata?.username;
-        toast.success(
-          `로그인 성공!\n  ${username}님, 오늘도 즐거운 여행 되세요!`,
-        );
-        navigate("/");
-      } else {
-        toast.error("확인되지 않은 사용자입니다.");
-      }
-    } catch (err) {
-      console.error(err);
-    }
+    if (!data.user) return toast.error("확인되지 않은 사용자입니다.");
+
+    const username = data.user.user_metadata?.username;
+    toast.success(`로그인 성공!\n  ${username}님, 오늘도 즐거운 여행 되세요!`);
+    navigate("/");
   };
 
   return (

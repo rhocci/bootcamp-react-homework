@@ -6,7 +6,7 @@ import { SignupForm } from "@/@types/forms";
 import supabase from "@/libs/supabase";
 import { tw, emailRules, passwordRules, usernameRules } from "@/utils";
 import Input from "@/components/Input";
-import defaultAvatarImg from "@assets/avatar.jpg";
+import defaultProfileImg from "@assets/avatar.jpg";
 import Textarea from "@/components/Textarea";
 
 export default function Signup() {
@@ -16,7 +16,7 @@ export default function Signup() {
   const [step, setStep] = useState(1);
   const [formattedPhone, setFormattedPhone] = useState("");
   const [uploadedImage, setUploadedImage] = useState<string | undefined>(
-    defaultAvatarImg,
+    defaultProfileImg,
   );
 
   const buttonClasses =
@@ -171,7 +171,7 @@ export default function Signup() {
                   className="aspect-square w-24 overflow-hidden rounded-full bg-gray-200"
                 >
                   <img
-                    src={uploadedImage ? uploadedImage : defaultAvatarImg}
+                    src={uploadedImage ? uploadedImage : defaultProfileImg}
                     alt="업로드된 프로필 사진"
                     title="프로필 사진"
                     className="h-full w-full object-cover"
