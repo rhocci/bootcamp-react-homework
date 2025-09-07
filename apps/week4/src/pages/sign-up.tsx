@@ -4,11 +4,13 @@ import { tw, emailRules, passwordRules, usernameRules } from "@/utils";
 import type { SignupForm } from "@/@types/forms";
 import Input from "@/components/Input";
 import defaultAvatarImg from "@assets/avatar.jpg";
+import supabase from "@/libs/supabase";
+import toast from "react-hot-toast";
 
 export default function Signup() {
   const methods = useForm<SignupForm>({ mode: "onChange" });
   const inputImage = useRef<HTMLInputElement>(null);
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(1);
   const [formattedPhone, setFormattedPhone] = useState("");
   const [uploadedImage, setUploadedImage] = useState<string | undefined>(
     defaultAvatarImg,
@@ -17,10 +19,59 @@ export default function Signup() {
   const buttonClasses =
     "transition-[colors, shadow] font-[500] w-full rounded-full py-2 text-lg duration-400 hover:shadow-lg";
 
-  const onSubmit = () => {
-    if (step < 2) setStep((prevStep) => ++prevStep);
-    else {
-      setStep(1);
+  const onSubmit = async (formData: SignupForm) => {
+    try {
+      const { data, error } = await supabase.auth.signUp(formData);
+
+      if (error) {
+        toast.error(`인증 오류 발생\n ${error.status}: ${error.message}`);
+      } else {
+        if (!data.user) return;
+
+        let profileUrl: string | null = null;
+
+        if (inputImage.current?.files?.[0]) {
+          const { data: imageData, error } = await supabase.storage
+            .from("profile-images")
+            .upload(
+              `public/${data.user.id}.png`,
+              inputImage.current?.files[0],
+              {
+                upsert: true,
+              },
+            );
+
+          if (error) {
+            toast.error(`이미지 업로드 오류 발생\n ${error.message}`);
+          } else {
+            const { data } = supabase.storage
+              .from("profile-images")
+              .getPublicUrl(imageData.path, {
+                transform: { width: 128, height: 128, resize: "cover" },
+              });
+
+            profileUrl = data.publicUrl;
+          }
+        }
+
+        const { error } = await supabase.from("profiles").insert({
+          id: data.user.id,
+          username: formData.username,
+          phone: formData.phone,
+          bio: formData.bio,
+          profile_url: profileUrl,
+        });
+
+        if (error) {
+          toast.error(
+            `회원가입 요청에 실패했습니다.\n ${error.code}: ${error.message}`,
+          );
+        }
+
+        toast.success("회원가입 성공!\n로그인 화면으로 이동합니다.");
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -132,29 +183,51 @@ export default function Signup() {
             </div>
           </div>
           <div className="flex gap-x-4">
-            {step === 2 && (
+            {step === 2 ? (
+              <>
+                <button
+                  type="button"
+                  disabled={methods.formState.isSubmitting}
+                  onClick={() => setStep((prevStep) => --prevStep)}
+                  className={tw(
+                    buttonClasses,
+                    "basis-2/5 bg-slate-200 text-gray-600 hover:bg-slate-300",
+                  )}
+                >
+                  이전으로
+                </button>
+                <button
+                  type="submit"
+                  disabled={methods.formState.isSubmitting}
+                  className={tw(
+                    buttonClasses,
+                    "bg-indigo-600 text-white hover:bg-indigo-700 hover:shadow-indigo-200",
+                  )}
+                >
+                  가입 완료
+                </button>
+              </>
+            ) : (
               <button
                 type="button"
                 disabled={methods.formState.isSubmitting}
-                onClick={() => setStep((prevStep) => --prevStep)}
+                onClick={async () => {
+                  const valid = await methods.trigger([
+                    "email",
+                    "phone",
+                    "password",
+                    "passwordCheck",
+                  ]);
+                  if (valid) setStep((prevStep) => ++prevStep);
+                }}
                 className={tw(
                   buttonClasses,
-                  "basis-2/5 bg-slate-200 text-gray-600 hover:bg-slate-300",
+                  "bg-indigo-600 text-white hover:bg-indigo-700 hover:shadow-indigo-200",
                 )}
               >
-                이전으로
+                다음으로
               </button>
             )}
-            <button
-              type="submit"
-              disabled={methods.formState.isSubmitting}
-              className={tw(
-                buttonClasses,
-                "bg-indigo-600 text-white hover:bg-indigo-700 hover:shadow-indigo-200",
-              )}
-            >
-              {step < 2 ? "다음 단계로" : "가입 완료"}
-            </button>
           </div>
         </form>
       </FormProvider>
