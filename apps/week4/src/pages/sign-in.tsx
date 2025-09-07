@@ -1,19 +1,19 @@
 import { useNavigate, Link } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
-import type { SigninForm } from "@/@types/forms";
+import type { LoginForm } from "@/@types/forms";
 import supabase from "@/libs/supabase";
 import Input from "@/components/Input";
 import toast from "react-hot-toast";
 import { emailRules, passwordRules } from "@/utils/validators";
 
-export default function SignIn() {
+export default function Login() {
   const navigate = useNavigate();
 
-  const methods = useForm<SigninForm>({
+  const methods = useForm<LoginForm>({
     mode: "onChange",
   });
 
-  const onSubmit = async (formData: SigninForm) => {
+  const onSubmit = async (formData: LoginForm) => {
     try {
       const { data, error } = await supabase.auth.signInWithPassword(formData);
 

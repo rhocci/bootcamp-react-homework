@@ -12,8 +12,6 @@ export default function Sidebar({ user, onLogout }: Props) {
     "rounded-l-full py-1.5 pr-7 pl-8 text-right font-[500] text-white hover:bg-white hover:font-[700] hover:text-indigo-800";
   const activeNavClasses = "bg-white font-[700] text-indigo-800";
 
-  function handleLogout() {}
-
   return (
     <aside className="hidden bg-indigo-600 pb-10 pl-20 md:flex md:items-end">
       <nav className="flex flex-col gap-y-2">
@@ -41,7 +39,7 @@ export default function Sidebar({ user, onLogout }: Props) {
           </button>
         ) : (
           <NavLink
-            to="/signin"
+            to="/login"
             className={({ isActive }) =>
               tw(navClasses, isActive && activeNavClasses)
             }

@@ -9,7 +9,7 @@ type UserInfo = {
   updatedAt?: string;
 };
 
-export type SigninForm = Pick<UserInfo, "email" | "password">;
+export type LoginForm = Pick<UserInfo, "email" | "password">;
 export type SignupForm = Omit<UserInfo, "createdAt" | "updatedAt"> & {
   passwordCheck: string;
 };
