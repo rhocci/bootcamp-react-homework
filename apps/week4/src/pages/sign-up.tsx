@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
 import { tw, emailRules, passwordRules, usernameRules } from "@/utils";
 import type { SignupForm } from "@/@types/forms";
@@ -9,6 +10,7 @@ import toast from "react-hot-toast";
 
 export default function Signup() {
   const methods = useForm<SignupForm>({ mode: "onChange" });
+  const navigate = useNavigate();
   const inputImage = useRef<HTMLInputElement>(null);
   const [step, setStep] = useState(1);
   const [formattedPhone, setFormattedPhone] = useState("");
@@ -21,14 +23,23 @@ export default function Signup() {
 
   const onSubmit = async (formData: SignupForm) => {
     try {
-      const { data: userData, error: authError } =
-        await supabase.auth.signUp(formData);
-      if (!userData.user) return;
+      const { data: userData, error: authError } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          data: {
+            username: formData.username,
+            phone: formData.phone,
+            bio: formData.bio,
+          },
+        },
+      });
 
       if (authError)
         return toast.error(
           `인증 오류 발생\n ${authError.status}: ${authError.message}`,
         );
+      if (!userData.user) return;
 
       let profileUrl: string | null = null;
       const imageFile = inputImage.current?.files?.[0];
@@ -36,7 +47,7 @@ export default function Signup() {
       if (imageFile) {
         const { data: uploadData, error: uploadError } = await supabase.storage
           .from("profile-images")
-          .upload(`public/${userData.user.id}.png`, imageFile, {
+          .upload(`${userData.user.id}/avatar`, imageFile, {
             upsert: true,
           });
 
@@ -56,6 +67,7 @@ export default function Signup() {
 
       const { error: signupError } = await supabase.from("profiles").insert({
         id: userData.user.id,
+        email: formData.email,
         username: formData.username,
         phone: formData.phone,
         bio: formData.bio,
@@ -68,6 +80,7 @@ export default function Signup() {
         );
 
       toast.success("회원가입 성공!\n로그인 화면으로 이동합니다.");
+      navigate("/login");
     } catch (error) {
       console.error(error);
       toast("알 수 없는 오류가 발생했습니다.");
