@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import supabase from "@/libs/supabase";
 import { tw } from "@/utils";
@@ -7,11 +7,12 @@ import defaultProfileImg from "@assets/avatar.jpg";
 import { fetchProfileData } from "@/api/profileData";
 
 export default function Sidebar() {
+  const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [profileImage, setProfileImage] = useState<string | null>(null);
 
   useEffect(() => {
-    (async () => {
+    const fetchProfile = async () => {
       const data = await fetchProfileData();
       if (!data) {
         return;
@@ -19,7 +20,9 @@ export default function Sidebar() {
 
       setIsLoggedIn(true);
       setProfileImage(data?.profile_url ?? null);
-    })();
+    };
+
+    fetchProfile();
 
     const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (session?.user) {
@@ -50,6 +53,7 @@ export default function Sidebar() {
     if (error) return toast(`로그아웃 실패\n${error.status}:${error.message}`);
 
     toast.success("로그아웃 성공");
+    navigate("/login");
   };
 
   const navClasses =

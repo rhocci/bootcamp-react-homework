@@ -54,7 +54,7 @@ export default function Signup() {
 
         if (uploadError)
           return toast.error(
-            `이미지 업로드 오류 발생\n ${uploadError.message}`,
+            `이미지 업로드 실패\n ${uploadError.message}`,
           );
 
         const { data: storedData } = supabase.storage

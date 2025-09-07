@@ -4,11 +4,11 @@ import { FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import supabase from "@/libs/supabase";
 import { ProfileForm } from "@/@types/forms";
+import { usernameRules } from "@/utils";
 import { fetchProfileData } from "@/api/profileData";
 import Input from "@/components/Input";
-import Textarea from "@/components/Textarea";
-import { usernameRules } from "@/utils";
 import UploadAvatar from "@/components/UploadAvatar";
+import Textarea from "@/components/Textarea";
 
 export default function Profile() {
   const methods = useForm<ProfileForm>();
@@ -55,11 +55,31 @@ export default function Profile() {
         );
       if (!userData.user) return;
 
+      let profileUrl: string | null = profileForm?.profile_url ?? null;
+      if (uploadedImage) {
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from("profile-images")
+          .upload(`${userData.user.id}/avatar`, uploadedImage, {
+            cacheControl: "3600",
+            upsert: true,
+          });
+
+        if (uploadError)
+          return toast.error(`이미지 업로드 실패\n ${uploadError.message}`);
+
+        const { data: storedData } = supabase.storage
+          .from("profile-images")
+          .getPublicUrl(uploadData.path);
+
+        profileUrl = storedData.publicUrl;
+      }
+
       const { error: updateError } = await supabase
         .from("profiles")
         .update({
           username: formData.username,
           bio: formData.bio,
+          profile_url: profileUrl,
         })
         .eq("id", userData.user.id);
 

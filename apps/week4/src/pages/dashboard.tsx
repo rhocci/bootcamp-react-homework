@@ -20,7 +20,13 @@ export default function Dashboard() {
         return;
       }
 
-      const dashboardData: Dashboard = data;
+      const dashboardData: Dashboard = {
+        email: data.email,
+        username: data.username,
+        phone: data.phone,
+        bio: data.bio,
+        created_at: data.created_at,
+      };
 
       setDashboard(dashboardData);
     };

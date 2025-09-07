@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import Layout from "./components/Layout";
 import Dashboard from "./pages/dashboard";
 import Profile from "./pages/profile";
 import Login from "./pages/sign-in";
 import Signup from "./pages/sign-up";
-import Layout from "./components/Layout";
 
 function App() {
   return (
