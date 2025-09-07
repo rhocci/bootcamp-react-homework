@@ -149,38 +149,10 @@ export default function Signup() {
             </div>
             <div className={step === 2 ? "" : "hidden"}>
               <div className="text-center">
-                {/* <label
-                  htmlFor="image"
-                  className="mb-2 block font-[400] text-slate-400"
-                >
-                  프로필 이미지
-                </label>
-                <input
-                  ref={inputImage}
-                  type="file"
-                  name="image"
-                  id="image"
-                  accept="image/jpg,image/png"
-                  onChange={handleChangeImage}
-                  className="hidden"
-                />
-                <button
-                  type="button"
-                  aria-label="프로필 사진 업로드"
-                  onClick={() => inputImage.current?.click()}
-                  className="aspect-square w-24 overflow-hidden rounded-full bg-gray-200"
-                >
-                  <img
-                    src={uploadedImage ? uploadedImage : defaultProfileImg}
-                    alt="업로드된 프로필 사진"
-                    title="프로필 사진"
-                    className="h-full w-full object-cover"
-                  />
-                </button> */}
                 <UploadAvatar
                   ref={inputImage}
                   onUpload={handleChangeImage}
-                  uploadedImage={uploadedImage}
+                  imageSrc={uploadedImage}
                 />
               </div>
               <Input name="username" label="이름" rules={usernameRules} />
