@@ -21,57 +21,56 @@ export default function Signup() {
 
   const onSubmit = async (formData: SignupForm) => {
     try {
-      const { data, error } = await supabase.auth.signUp(formData);
+      const { data: userData, error: authError } =
+        await supabase.auth.signUp(formData);
+      if (!userData.user) return;
 
-      if (error) {
-        toast.error(`인증 오류 발생\n ${error.status}: ${error.message}`);
-      } else {
-        if (!data.user) return;
+      if (authError)
+        return toast.error(
+          `인증 오류 발생\n ${authError.status}: ${authError.message}`,
+        );
 
-        let profileUrl: string | null = null;
+      let profileUrl: string | null = null;
+      const imageFile = inputImage.current?.files?.[0];
 
-        if (inputImage.current?.files?.[0]) {
-          const { data: imageData, error } = await supabase.storage
-            .from("profile-images")
-            .upload(
-              `public/${data.user.id}.png`,
-              inputImage.current?.files[0],
-              {
-                upsert: true,
-              },
-            );
+      if (imageFile) {
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from("profile-images")
+          .upload(`public/${userData.user.id}.png`, imageFile, {
+            upsert: true,
+          });
 
-          if (error) {
-            toast.error(`이미지 업로드 오류 발생\n ${error.message}`);
-          } else {
-            const { data } = supabase.storage
-              .from("profile-images")
-              .getPublicUrl(imageData.path, {
-                transform: { width: 128, height: 128, resize: "cover" },
-              });
-
-            profileUrl = data.publicUrl;
-          }
-        }
-
-        const { error } = await supabase.from("profiles").insert({
-          id: data.user.id,
-          username: formData.username,
-          phone: formData.phone,
-          bio: formData.bio,
-          profile_url: profileUrl,
-        });
-
-        if (error) {
-          toast.error(
-            `회원가입 요청에 실패했습니다.\n ${error.code}: ${error.message}`,
+        if (uploadError)
+          return toast.error(
+            `이미지 업로드 오류 발생\n ${uploadError.message}`,
           );
-        }
 
-        toast.success("회원가입 성공!\n로그인 화면으로 이동합니다.");
+        const { data: storedData } = supabase.storage
+          .from("profile-images")
+          .getPublicUrl(uploadData.path, {
+            transform: { width: 128, height: 128, resize: "cover" },
+          });
+
+        profileUrl = storedData.publicUrl;
       }
+
+      const { error: signupError } = await supabase.from("profiles").insert({
+        id: userData.user.id,
+        username: formData.username,
+        phone: formData.phone,
+        bio: formData.bio,
+        profile_url: profileUrl,
+      });
+
+      if (signupError)
+        return toast.error(
+          `회원가입 요청에 실패했습니다.\n ${signupError.code}: ${signupError.message}`,
+        );
+
+      toast.success("회원가입 성공!\n로그인 화면으로 이동합니다.");
     } catch (error) {
       console.error(error);
+      toast("알 수 없는 오류가 발생했습니다.");
     }
   };
 
