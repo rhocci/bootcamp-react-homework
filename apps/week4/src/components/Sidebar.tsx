@@ -13,7 +13,7 @@ export default function Sidebar({ user, onLogout }: Props) {
   const activeNavClasses = "bg-white font-[700] text-indigo-800";
 
   return (
-    <aside className="hidden bg-indigo-600 pb-10 pl-20 md:flex md:items-end">
+    <aside className="hidden shrink-0 bg-indigo-600 pb-10 pl-12 md:flex md:items-end">
       <nav className="flex flex-col gap-y-2">
         <NavLink
           to="/"

@@ -18,13 +18,15 @@ export default function Login() {
       const { data, error } = await supabase.auth.signInWithPassword(formData);
 
       if (error) {
-        toast.error(`로그인 실패\n ${error.status}: ${error.message}`);
+        toast.error(`로그인 실패!\n ${error.status}: ${error.message}`);
         return;
       }
 
       if (data?.user) {
         const username = data.user.user_metadata?.username;
-        toast.success(`로그인 성공!\n 환영합니다, ${username}님!`);
+        toast.success(
+          `로그인 성공!\n  ${username}님, 오늘도 즐거운 여행 되세요!`,
+        );
         navigate("/");
       } else {
         toast.error("확인되지 않은 사용자입니다.");
@@ -35,9 +37,11 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <h2 className="mb-10 text-center text-2xl font-[700] text-slate-800">
-        로그인
+    <div className="w-full">
+      <h2 className="mb-10 text-left text-2xl font-[700] text-slate-800">
+        여행자님,
+        <br />
+        어서 오세요!
       </h2>
       <FormProvider {...methods}>
         <form
@@ -62,7 +66,7 @@ export default function Login() {
           <button
             type="submit"
             disabled={methods.formState.isSubmitting}
-            className="transition-[colors, shadow] hover:shadow- w-full rounded-full bg-indigo-600 py-3 text-xl font-[500] text-white duration-400 hover:bg-indigo-700 hover:shadow-lg hover:shadow-indigo-200"
+            className="transition-[colors, shadow] hover:shadow- w-full rounded-full bg-indigo-600 py-2 text-xl font-[500] text-white duration-400 hover:bg-indigo-700 hover:shadow-lg hover:shadow-indigo-200"
           >
             로그인
           </button>
